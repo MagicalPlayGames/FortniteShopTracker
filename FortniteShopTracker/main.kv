@@ -1,0 +1,200 @@
+#:import MDSwiper kivymd.uix.swiper.MDSwiper
+#:import MDLabel kivymd.uix.label.MDLabel
+#:import MDSwiperItem kivymd.uix.swiper.MDSwiperItem
+#:import FitImage kivymd.uix.fitimage.FitImage
+#:import Window kivy.core.window.Window
+<MyTab@Button>
+	on_press: app.changeLayout(self.text)
+	background_color: .5, 0, .5, 1
+	text_size:(self.width,None)
+	size: (dp(50),dp(25))
+	font_size: (self.size[1]/5)
+	text_align: 'center'
+	valign: 'center'
+	halign: 'center'
+<MyScroller@MDGridLayout>
+	rows: 2
+	adaptive_height: False
+	size_hint_y: .4
+	width:500
+	spacing: 0
+	padding: 0
+<MyImage@FitImage>
+	allow_strech: True
+	keep_ratio: True 
+	halign: 'center'
+	id: img2'
+<MyLabel@Label>
+	id: label
+	halign: 'center'
+	valign: 'center'
+	size: (400, 150)
+	text_size:(400, None)
+	font_size: self.width*.1
+MDFloatLayout:
+	FitImage:
+		size: Window.size
+		source: 'cosmicBackground.jpg'
+	MDGridLayout:
+		cols: 2
+		MDSwiper:
+			MDSwiperItem:
+				size: Window.size
+				FloatLayout:
+					MDGridLayout:
+						pos_hint: {'left': 1.0, 'top': 1.0}
+						halign: 'left'
+						rows: 3
+						adaptive_height: False
+						size_hint: 1,.2
+						id:tabs
+					MDScrollView:
+						size_hint: 1,.8
+						pos_hint: {'bottom': 1.0}
+						adaptive_height: True
+						do_scroll_y: True
+						MDGridLayout:
+							adaptive_height: True
+							cols: 2
+							size_hint_y: None
+							size_hint_x: 1
+							id: scroller
+			MDSwiperItem:
+				size: Window.size
+				MDGridLayout:
+					rows: 2
+					MDFloatLayout:
+						pos_hint: {'x':0,'top':1}
+						size_hint: 1,.2
+						MDBoxLayout: 
+							size_hint: 1,.4
+							pos_hint: {'x':0,'top':1}
+							MDTextField:
+								text: 'Wh34tl3y'
+								mode: "fill"
+								id: search
+								size_hint: 1, None
+								pos_hint: {'x':0,'y':0.2}
+								hint_text: "Enter Fortnite GamerTag"
+								helper_text_mode: "on_error"
+								helper_text: ""
+								helper_text_color: 1,0,0,1
+								write_tab: False
+								multiline: False
+								on_text_validate: app.findStats(self.text)
+							Button:
+								allow_strecth: False
+								keep_aspect_ratio: True
+								size_hint_y: None
+								size_hint_x: app.statTextMultiplier*2.5
+								pos_hint: {'y_center':0.5}
+								height: (self.width*0.5625)
+								id: button
+								background_normal: 'magnifying-glass-icon.png'
+								on_press: app.findStats(app.root.ids.search.text)
+						Label:
+							size_hint: 1,.4
+							font_size: self.width/10
+							pos_hint: {'x':0,'top':.4}
+							color: 1,1,1,1
+							canvas.before:
+								Color:
+								    rgba: .5, 0, .5, .5
+								Rectangle:
+								    size:[self.size[0]-4,self.size[1]]
+								    pos: [self.pos[0]+2,self.pos[1]]
+							text: 'Wh34tl3y'
+							id: gamerTag
+					MDBoxLayout:
+						size_hint: 1,.8
+						MDFloatLayout:
+							size_hint:1,.8
+							pos_hint: {'x':0,'top':1}
+							canvas.before:
+								Color:
+								    rgba: .75,.75,.75,.5
+								Rectangle:
+								    size: self.size
+								    pos: self.pos
+							adaptive_height: False
+							id: stats
+							MDGridLayout:
+								pos_hint: {'x': 0,'top':1}
+								size_hint:(1,.1)
+								rows: 1
+								MyLabel:
+									canvas.before:
+										Color:
+										    rgba: .2,.2,.2,.5
+										Rectangle:
+										    size:[self.size[0]-4,self.size[1]]
+										    pos: [self.pos[0]+2,self.pos[1]]
+									text: "Overall"
+									font_size: self.width/4
+								MyLabel:
+									canvas.before:
+										Color:
+										    rgba: .2,.2,.2,.5
+										Rectangle:
+										    size:[self.size[0]-4,self.size[1]]
+										    pos: [self.pos[0]+2,self.pos[1]]
+									text: "Solos"
+									font_size: self.width/4
+								MyLabel:
+									canvas.before:
+										Color:
+										    rgba: .2,.2,.2,.5
+										Rectangle:
+										    size:[self.size[0]-4,self.size[1]]
+										    pos: [self.pos[0]+2,self.pos[1]]
+									text: "Duos"
+									font_size: self.width/4
+								MyLabel:
+									canvas.before:
+										Color:
+										    rgba: .2,.2,.2,.5
+										Rectangle:
+										    size:[self.size[0]-4,self.size[1]]
+										    pos: [self.pos[0]+2,self.pos[1]]
+									text: "Squads"
+									font_size: self.width/4
+							MDGridLayout:
+								pos_hint: {'x': 0,'top':.9}
+								size_hint:(1,.9)
+								rows: 1
+								MyLabel:
+									canvas.before:
+										Color:
+										    rgba: .5,.5,.5,.5
+										Rectangle:
+										    size:[self.size[0]-4,self.size[1]-2]
+										    pos: [self.pos[0]+2,self.pos[1]+1]
+									id:overall
+									font_size: self.width*app.statTextMultiplier
+								MyLabel:
+									canvas.before:
+										Color:
+										    rgba: .5,.5,.5,.5
+										Rectangle:
+										    size:[self.size[0]-4,self.size[1]-2]
+										    pos: [self.pos[0]+2,self.pos[1]+1]
+									id:solos
+									font_size: self.width*app.statTextMultiplier
+								MyLabel:
+									canvas.before:
+										Color:
+										    rgba: .5,.5,.5,.5
+										Rectangle:
+										    size:[self.size[0]-4,self.size[1]-2]
+										    pos: [self.pos[0]+2,self.pos[1]+1]
+									id:duos
+									font_size: self.width*app.statTextMultiplier
+								MyLabel:
+									canvas.before:
+										Color:
+										    rgba: .5,.5,.5,.5
+										Rectangle:
+										    size:[self.size[0]-4,self.size[1]-2]
+										    pos: [self.pos[0]+2,self.pos[1]+1]
+									id:squads
+									font_size: self.width*app.statTextMultiplier
