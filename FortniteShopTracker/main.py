@@ -211,7 +211,7 @@ class MyApp(MDApp):
             layoutName = "ZZZLast"
             layoutName = self.bestFit(item,{'brItems':{0:{'type':'displayValue'}},'layout':'name'})
             if('layoutId' in item):
-                if('Jam' in item['layoutId']):
+                if('Jam' in item['layoutId'] and item['tracks']!=None):
                     for tracks in item['tracks']:
                         if(len(tracks['title'])>30 or len(tracks['artist'])>35):
                             temp = tracks['title'] + ' by ' + tracks['artist']
