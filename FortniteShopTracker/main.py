@@ -163,6 +163,7 @@ class MyApp(MDApp):
                             for l, v in value.items():
                                 if item[key][layout][l]!=None:
                                     return item[key][layout][l][v]
+        return None
 
     #Finds the main image, category/layoutName, itemName, 
     # other images, and finalPrice for the item provided
@@ -208,8 +209,9 @@ class MyApp(MDApp):
     def splitItems(self,items):
         for item in items :
             itemName = ""
-            layoutName = "ZZZLast"
             layoutName = self.bestFit(item,{'brItems':{0:{'type':'displayValue'}},'layout':'name'})
+            if(layoutName==None):
+                layoutName = "Other"
             if('layoutId' in item):
                 if('Jam' in item['layoutId'] and item['tracks']!=None):
                     for tracks in item['tracks']:
